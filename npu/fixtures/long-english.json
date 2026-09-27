@@ -1,0 +1,15 @@
+{
+  "model": "english",
+  "state": "Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice. Please review the duplicate invoice.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this?",
+      "criteria": {
+        "billing": "charges, invoices, and refunds",
+        "technical": "software errors",
+        "other": "anything else"
+      }
+    }
+  }
+}

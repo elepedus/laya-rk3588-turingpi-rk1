@@ -1,0 +1,14 @@
+{
+  "state": "Mein Konto wurde zweimal belastet. Bitte prüfen Sie die Rechnung und erstatten Sie den doppelten Betrag.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this request?",
+      "criteria": {
+        "billing": "invoices, payments, refunds",
+        "technical": "bugs, crashes, outages",
+        "other": "everything else"
+      }
+    }
+  }
+}

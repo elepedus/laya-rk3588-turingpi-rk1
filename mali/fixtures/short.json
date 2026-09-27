@@ -1,0 +1,10 @@
+{
+  "state": "",
+  "questions": {
+    "q": {
+      "type": "choice",
+      "instructions": "",
+      "criteria": {"x": "x"}
+    }
+  }
+}

@@ -1,0 +1,13 @@
+/target/
+**/target/
+/models/
+/.cache/
+/dist/
+.venv*/
+**/runtime.env
+*.safetensors
+*.rknn
+*.onnx
+*.onnx.data
+.DS_Store
+._*

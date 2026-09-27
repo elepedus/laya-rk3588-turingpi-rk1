@@ -1,0 +1,23 @@
+{
+  "state": "The backup job failed twice overnight and no restore point was created.",
+  "questions": {
+    "severity": {
+      "type": "choice",
+      "instructions": "How should this backup alert be handled?",
+      "criteria": {
+        "routine": "completed successfully or informational",
+        "investigate": "a minor issue requiring review",
+        "urgent": "backup failed or no restore point exists"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgent is the backup alert?",
+      "criteria": ["not urgent", "review soon", "immediate attention"]
+    },
+    "failed": {
+      "type": "noul",
+      "instructions": "Did the backup job fail?"
+    }
+  }
+}

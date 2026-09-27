@@ -1,0 +1,14 @@
+{
+  "state": "We were billed twice for March. Please refund the duplicate today.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this?",
+      "criteria": {
+        "billing": "invoices, payments, refunds",
+        "technical": "bugs and outages",
+        "other": "everything else"
+      }
+    }
+  }
+}

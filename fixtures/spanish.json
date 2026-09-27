@@ -1,0 +1,14 @@
+{
+  "state": "La aplicación se cierra cada vez que abro la configuración. Por favor, ayúdame a solucionar este error.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this request?",
+      "criteria": {
+        "billing": "invoices, payments, refunds",
+        "technical": "bugs, crashes, outages",
+        "other": "everything else"
+      }
+    }
+  }
+}

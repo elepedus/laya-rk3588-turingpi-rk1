@@ -1,0 +1,14 @@
+/cache/
+/home/
+/logs/
+/models/
+/rust/
+/target/
+/tmp/
+/vendor/
+/venv/
+/wheels/
+*.f32
+*.onnx
+*.rknn
+__pycache__/

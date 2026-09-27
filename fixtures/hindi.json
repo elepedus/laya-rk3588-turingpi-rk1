@@ -1,0 +1,14 @@
+{
+  "state": "मुझसे मार्च में दो बार शुल्क लिया गया, कृपया डुप्लिकेट राशि वापस करें।",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this request?",
+      "criteria": {
+        "billing": "invoices, payments, refunds",
+        "technical": "bugs, crashes, outages",
+        "other": "everything else"
+      }
+    }
+  }
+}

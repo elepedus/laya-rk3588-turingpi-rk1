@@ -1,0 +1,24 @@
+{
+  "model": "typed-decisions",
+  "state": "Invoice 4411 was paid twice. The duplicate charge does not match the purchase order and needs review.",
+  "questions": {
+    "disposition": {
+      "type": "choice",
+      "instructions": "What should happen to this invoice?",
+      "criteria": {
+        "approve": "the invoice matches the order",
+        "review": "the invoice has a discrepancy",
+        "reject": "the invoice is invalid"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgent is this invoice issue?",
+      "criteria": ["routine", "review soon", "immediate action"]
+    },
+    "duplicate": {
+      "type": "noul",
+      "instructions": "Was this invoice paid twice?"
+    }
+  }
+}

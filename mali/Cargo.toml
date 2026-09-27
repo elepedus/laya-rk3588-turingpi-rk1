@@ -1,0 +1,15 @@
+[package]
+name = "laya-mali"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[dependencies]
+anyhow = "1"
+libloading = "0.8"
+libm = "0.2"
+memmap2 = "0.9"
+safetensors = "0.6"
+serde_json = { version = "1", features = ["preserve_order"] }
+tiny_http = "0.12"
+tokenizers = { version = "0.22.2", default-features = false, features = ["onig"] }
