@@ -32,6 +32,18 @@ Both release binaries target **ARM64 Ubuntu 22.04**, the tested RK1 system.
 The CPU reference implementation is maintained upstream and is not included
 here.
 
+### NPU driver requirement
+
+`laya-rknpu` uses Rockchip's **RKNN/RKNPU stack**: an RKNN-compatible kernel
+driver and Rockchip's ARM64 `librknnrt.so` userspace runtime. The tested RK1
+ran a `5.10.160-rockchip` kernel with RKNPU driver **0.9.2** and RKNN Runtime
+API **2.3.2**. The kernel driver source is available in Rockchip's kernel; a
+community build or port can work if it preserves the RKNN driver interface,
+but this repository has only been tested with the stated RK1 combination.
+The mainline [Rocket/Mesa NPU stack](https://docs.kernel.org/accel/rocket/index.html)
+uses a different userspace interface and cannot run this backend's `.rknn`
+graphs as-is. See [NPU driver and runtime setup](npu/README.md#driver-and-runtime-requirements).
+
 ## Download a release
 
 Open [Releases](https://github.com/elepedus/laya-rk3588-turingpi-rk1/releases)

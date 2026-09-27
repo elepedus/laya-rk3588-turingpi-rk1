@@ -19,6 +19,39 @@ an NPU normalization graph. A one-hot type input keeps the decision head's
 type projection on the NPU. No Python, Torch, ONNX Runtime, or Mali OpenCL is
 used by this service at inference time.
 
+## Driver and runtime requirements
+
+This backend calls the [Rockchip RKNN C API](https://github.com/airockchip/rknn-toolkit2)
+through `librknnrt.so`. To run it on an RK1, provide all three components:
+
+1. An RK3588 **RKNPU kernel driver** exposing the interface expected by
+   Rockchip's RKNN Runtime. Rockchip publishes the driver source in its kernel
+   tree. The tested RK1 used kernel `5.10.160-rockchip` and driver **0.9.2**.
+2. The ARM64 **Rockchip RKNN Runtime** `librknnrt.so`, staged on `/mnt/warm` at
+   the path specified by `LAYA_RKNNRT`. We tested RKNN API **2.3.2**; the exact
+   library and SHA-256 are listed below. The release binary loads this library
+   dynamically and does not include it.
+3. `.rknn` graphs converted with **RKNN-Toolkit2 2.3.2**, staged on `/mnt/warm`
+   at `LAYA_RKNN_GRAPH_ROOT`, plus the Laya model snapshot at `LAYA_MODEL_DIR`.
+   Toolkit2 runs on the build host; Python and Toolkit2 are not needed for
+   inference on the RK1.
+
+A community kernel or out-of-tree RKNPU driver **may** work if it implements
+the same interface used by `librknnrt.so`. For example, [this community RK3588
+port](https://github.com/antonioacg/rknpu-rk3588) reports running the vendor
+RKNN SDK on another RK3588 board; it has not been validated here on a Turing
+Pi RK1. The mainline [Linux `accel/rocket`
+driver](https://docs.kernel.org/accel/rocket/index.html) instead uses Mesa's
+Rocket userspace. It does not provide the RKNN API or `.rknn` graph loader
+used by this backend. A Rocket installation alone is therefore insufficient.
+Rockchip [describes the RKNN Runtime and RKNPU driver as separate parts of its
+stack](https://github.com/airockchip/rknn-toolkit2/blob/master/README.md).
+
+Start with the tested driver/runtime pair where possible. Other versions may
+work, but they have not been checked with these graphs. After staging the
+runtime and graphs, start `laya-rknpu serve-full` and check `GET /health` as
+shown in the [main setup instructions](../README.md#run-on-an-rk1).
+
 ## Lengths and memory
 
 The service selects the smallest compiled bucket that holds each question:
@@ -45,7 +78,8 @@ converter creates a unique working directory because Toolkit2 writes
 intermediate ONNX files in its current directory; it removes them afterward.
 
 The staged Toolkit2 wheel and runtime came from official Rockchip repository
-commit `59a913d172e7f5ff03c9076e2ec7b1b1288ffd08`:
+commit `59a913d172e7f5ff03c9076e2ec7b1b1288ffd08`. The ARM64 runtime is
+[here](https://github.com/airockchip/rknn-toolkit2/tree/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknpu2/runtime/Linux/librknn_api/aarch64):
 
 | Artifact | SHA-256 |
 | --- | --- |
