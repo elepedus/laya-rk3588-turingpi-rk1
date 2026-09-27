@@ -35,11 +35,20 @@ here.
 ### NPU driver requirement
 
 `laya-rknpu` uses Rockchip's **RKNN/RKNPU stack**: an RKNN-compatible kernel
-driver and Rockchip's ARM64 `librknnrt.so` userspace runtime. The tested RK1
-ran a `5.10.160-rockchip` kernel with RKNPU driver **0.9.2** and RKNN Runtime
-API **2.3.2**. The kernel driver source is available in Rockchip's kernel; a
-community build or port can work if it preserves the RKNN driver interface,
-but this repository has only been tested with the stated RK1 combination.
+driver and Rockchip's ARM64 `librknnrt.so` userspace runtime. These are the
+versions used for the benchmark above:
+
+| Component | Tested version and download |
+| --- | --- |
+| RK1 kernel with RKNPU driver | [`linux-image-5.10.160-rockchip` package `5.10.160-37`](https://ppa.launchpadcontent.net/jjriek/rockchip/ubuntu/pool/main/l/linux-rockchip-5.10/linux-image-5.10.160-rockchip_5.10.160-37_arm64.deb), reporting driver **0.9.2** |
+| ARM64 RKNN runtime | [Rockchip `librknnrt.so` at the pinned Toolkit2 commit](https://raw.githubusercontent.com/airockchip/rknn-toolkit2/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so), API **2.3.2** |
+| Offline graph compiler | [Rockchip Toolkit2 **2.3.2** ARM64 Python 3.10 wheel](https://raw.githubusercontent.com/airockchip/rknn-toolkit2/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknn-toolkit2/packages/arm64/rknn_toolkit2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl) |
+
+The kernel package is a record of the tested installation, not a complete RK1
+OS image. Use a board-compatible kernel and device tree. The [Rockchip RKNPU
+0.9.2 source](https://github.com/rockchip-linux/kernel/tree/9894920d7cc633869f4aa6ed043c2e63d0d1da42/drivers/rknpu)
+shows the driver family; community builds or ports can work if they preserve
+the RKNN driver interface, but have not been tested here.
 The mainline [Rocket/Mesa NPU stack](https://docs.kernel.org/accel/rocket/index.html)
 uses a different userspace interface and cannot run this backend's `.rknn`
 graphs as-is. See [NPU driver and runtime setup](npu/README.md#driver-and-runtime-requirements).

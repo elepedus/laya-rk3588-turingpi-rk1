@@ -25,16 +25,21 @@ This backend calls the [Rockchip RKNN C API](https://github.com/airockchip/rknn-
 through `librknnrt.so`. To run it on an RK1, provide all three components:
 
 1. An RK3588 **RKNPU kernel driver** exposing the interface expected by
-   Rockchip's RKNN Runtime. Rockchip publishes the driver source in its kernel
-   tree. The tested RK1 used kernel `5.10.160-rockchip` and driver **0.9.2**.
-2. The ARM64 **Rockchip RKNN Runtime** `librknnrt.so`, staged on `/mnt/warm` at
-   the path specified by `LAYA_RKNNRT`. We tested RKNN API **2.3.2**; the exact
-   library and SHA-256 are listed below. The release binary loads this library
-   dynamically and does not include it.
-3. `.rknn` graphs converted with **RKNN-Toolkit2 2.3.2**, staged on `/mnt/warm`
-   at `LAYA_RKNN_GRAPH_ROOT`, plus the Laya model snapshot at `LAYA_MODEL_DIR`.
-   Toolkit2 runs on the build host; Python and Toolkit2 are not needed for
-   inference on the RK1.
+   Rockchip's RKNN Runtime. The tested RK1 had
+   [`linux-image-5.10.160-rockchip` package `5.10.160-37`](https://ppa.launchpadcontent.net/jjriek/rockchip/ubuntu/pool/main/l/linux-rockchip-5.10/linux-image-5.10.160-rockchip_5.10.160-37_arm64.deb),
+   reporting driver **0.9.2**. Rockchip's [RKNPU 0.9.2 source](https://github.com/rockchip-linux/kernel/tree/9894920d7cc633869f4aa6ed043c2e63d0d1da42/drivers/rknpu)
+   is available for compatible kernel builds. The linked package alone is not
+   a complete RK1 OS image; the board also needs a compatible device tree.
+2. The ARM64 **Rockchip RKNN Runtime**
+   [`librknnrt.so` from the exact tested commit](https://raw.githubusercontent.com/airockchip/rknn-toolkit2/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so),
+   staged on `/mnt/warm` at the path specified by `LAYA_RKNNRT`. It reports
+   RKNN API **2.3.2**. Its SHA-256 is listed below. The release binary loads
+   this library dynamically and does not include it.
+3. `.rknn` graphs converted with the [tested RKNN-Toolkit2 **2.3.2** ARM64
+   Python 3.10 wheel](https://raw.githubusercontent.com/airockchip/rknn-toolkit2/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknn-toolkit2/packages/arm64/rknn_toolkit2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl),
+   staged on `/mnt/warm` at `LAYA_RKNN_GRAPH_ROOT`, plus the Laya model
+   snapshot at `LAYA_MODEL_DIR`. Toolkit2 runs on the build host; Python and
+   Toolkit2 are not needed for inference on the RK1.
 
 A community kernel or out-of-tree RKNPU driver **may** work if it implements
 the same interface used by `librknnrt.so`. For example, [this community RK3588
@@ -78,8 +83,8 @@ converter creates a unique working directory because Toolkit2 writes
 intermediate ONNX files in its current directory; it removes them afterward.
 
 The staged Toolkit2 wheel and runtime came from official Rockchip repository
-commit `59a913d172e7f5ff03c9076e2ec7b1b1288ffd08`. The ARM64 runtime is
-[here](https://github.com/airockchip/rknn-toolkit2/tree/59a913d172e7f5ff03c9076e2ec7b1b1288ffd08/rknpu2/runtime/Linux/librknn_api/aarch64):
+commit `59a913d172e7f5ff03c9076e2ec7b1b1288ffd08`. The SHA-256 values below
+were checked against the direct downloads linked above:
 
 | Artifact | SHA-256 |
 | --- | --- |
